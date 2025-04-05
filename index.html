@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html class="no-js" lang="">
+<script>
+  async function getData() {
+    const url = "https://api.rule34.xxx/index.php?page=dapi&s=comment&q=index";
+    console.log("hey asaaa")
+    var parser;
+    var xmlDoc;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      // const body = await response.body
+      // console.log(body)
+      const text= await response.text()
+      parser = new DOMParser();
+      xmlDoc = parser.parseFromString(text, "text/xml");
+      finalOutput="";
+      x= xmlDoc.getElementsByTagName("comments")[0].childNodes
+      for (i =0; i<x.length;i++) {
+        comment=x[i].getAttribute("body")
+        console.log(comment)
+        if (comment.length>90) {
+          finalOutput+="Post ID:"+ x[i].getAttribute("post_id") +": "+comment
+          finalOutput+="<p></p>"
+        }
+      }
+      console.log(finalOutput)
+      document.getElementById("reference").innerHTML=finalOutput
+
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  getData()
+</script>
+
+<head>
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <p id="reference">Hello world! This is HTML5 Boilerplate.</p>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
