@@ -23,8 +23,12 @@
         comment=x[i].getAttribute("body")
         console.log(comment)
         if (comment.length>90) {
-          finalOutput+="Post ID:"+ x[i].getAttribute("post_id") +": "+comment
-          finalOutput+="<p></p>"
+          checkComment=comment.toLowerCase()
+          if (!(checkComment.includes("disc") || checkComment.includes("discord") || checkComment.includes("dc ") || checkComment.includes(" dc"))) {
+            finalOutput+="Post ID:"+ x[i].getAttribute("post_id") +": "+comment
+            finalOutput+="<p></p>"
+
+          }
         }
       }
       console.log(finalOutput)
@@ -43,7 +47,7 @@
 <body>
 
   <!-- Add your site or application content here -->
-  <p id="reference">Hello world! This is HTML5 Boilerplate.</p>
+  <p id="reference">"Uhhh... I don't know.. that's a sentence" -H mederos</p>
   <script src="js/app.js"></script>
 
 </body>
