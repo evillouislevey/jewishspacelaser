@@ -216,7 +216,7 @@
                     "sceneid": "dom_phrase_dna",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"+4"}
+                        {"points":"+2"}
                     ],
                     "message": [
                         {"Kaiser": "@Woah! That totally has me swayed over."},
@@ -246,7 +246,7 @@
                     "sceneid": "dom_phrase_ex",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"-4"}
+                        {"points":"-6"}
                     ],
 
                     "message": [
@@ -276,7 +276,7 @@
                     "sceneid": "dom_questions1_right",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"+4"}
+                        {"points":"+2"}
                     ],
 
                     "message": [
@@ -309,7 +309,7 @@
                     "sceneid": "dom_questions1_wrong",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"-2"}
+                        {"points":"-3"}
                     ],
 
                     "message": [
@@ -337,7 +337,7 @@
                     "sceneid": "dom_questions2_wrong",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"-2"}
+                        {"points":"-4"}
                     ],
                     "message": [
                         {"Kaiser ": "Thats so wrong! It's my right foot!"},
@@ -350,7 +350,7 @@
                     "sceneid": "dom_questions2_right",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"+3"}
+                        {"points":"+2"}
                     ],
                     "message": [
                         {"Kaiser": "Wow you know so much!"},
@@ -374,7 +374,7 @@
                     "sceneid": "dom_questions3_wrong",
                     "background": "restaurant",
                     "newvars":[
-                        {"points":"-2"}
+                        {"points":"-4"}
                     ],
                     "message": [
                         {"Kaiser ": "You're wrong! Its 28 cm!@"},
@@ -397,6 +397,40 @@
                 },
                 {
                     "sceneid": "dom_stage2",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser": "I have such a tragic past. My dad always abused me and I grew up<without love. That has deeply affected the way I play<soccer."},
+                    ],
+                    "choice": ["Nobody cares about that nerd","I can't believe that happened to you. I'll make sure you're safe."],
+                    "choiceoutcome":["dom_stage2.1_bad","dom_stage2.1_good"]
+
+                },
+                {
+                    "sceneid": "dom_stage2.1_bad",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-6"}
+                    ],
+                    "message": [
+                        {"Kaiser": "That's rude! You're just like that stupid yoichi clown."},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_stage2.2"]
+                },
+                {
+                    "sceneid": "dom_stage2.1_good",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+3"}
+                    ],
+                    "message": [
+                        {"Kaiser": "Thank you. I feel so safe when around you. I feel like I can really trust you."},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_stage2.2"]
+                },
+                {
+                    "sceneid": "dom_stage2.2",
                     "background": "restaurant",
                     "ending": [
                         { "NormalBad": "ending_dom_fail" },
@@ -493,7 +527,7 @@
                  document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
                 }
                 repetition++;
-                typeWriterID = setTimeout(typeWriter, delay, message, 1 , repetition); //run the function again in a few milliseconds
+                typeWriterID = setTimeout(typeWriter, delay, message, 30 , repetition); //run the function again in a few milliseconds
             } else {
                 typewriterFinished = message; // if characters are not left update typewriterFinished, 
                 document.getElementById("nextLine").style.display = 'inherit';
