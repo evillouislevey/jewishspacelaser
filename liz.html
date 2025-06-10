@@ -1,0 +1,832 @@
+<style>
+    #body {
+        position: relative;
+        left: 30px;
+    }
+    #downleft {
+        position: absolute;
+        left: 0;
+        top: 300px;
+    }
+
+    #upleft {
+        position: absolute;
+        left: 180px;
+        top: 225px;
+    }
+
+    #center {
+        position: absolute;
+        left: 255px;
+        top: 300px;
+    }
+
+    #upright {
+        position: absolute;
+        left: 405px;
+        top: 225px;
+    }
+
+    #downright {
+        position: absolute;
+        left: 502px;
+        top: 300px;
+    }
+
+
+    .textbox {
+        position: absolute;
+        top: 472px;
+        z-index: 2;
+    }
+
+    #endingtext {
+        position: absolute;
+        z-index: 2;
+        top: 225px;
+        left: 425px;
+        color: red;
+        font-size: 22px;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+    #remember {
+        position: absolute;
+        top:-400px;
+        left: 60px;
+        z-index: 4;
+        font-size: 30px;
+        color:white;
+        background:darkgray;
+        font-family: 'Curlz MT';
+        opacity: 0;
+    }
+    #output {
+        position: relative;
+        top: -127px;
+        left: 22px;
+        color: white;
+        z-index: 2;
+
+        font-family: 'Cambria','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+    }
+
+    #speakerName {
+        position: absolute;
+        font-size: 22px;
+        top: 57px;
+        left: 22px;
+        z-index: 2;
+        color: white;
+        font-family: 'Helvetica','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+    }
+    #model {
+        position: absolute;
+        top: 120px;
+        z-index: 1;
+    }
+
+    #nextLine {
+        position: relative;
+        font-family: 'Fondamento','Franklin Gothic', 'Arial Narrow', Arial, sans-serif;
+        top: -82px;
+        color: azure;
+        left: 495px;
+        display: none;
+        z-index: 2;
+
+    }
+
+    button {
+        padding: 15px 18px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #04AA6D;
+        border: none;
+        border-radius: 35px;
+        position: relative;
+        top: -440px;
+        left: 330px;
+        z-index: 17;
+        margin-bottom: 10px;
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+
+    }
+
+        button:hover {
+            background-color: #97b688;
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+
+        }
+
+        button:active {
+            background-color: #97b688;
+            box-shadow: 0 10px #666;
+            transform: translateX(-40%);
+
+
+        }
+</style>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script>
+        var continueLine = "";
+        var avatar;
+        var points = 0;
+        const sourceJson = {
+            "scenes": [
+                {
+                    "sceneid":"start",
+                    "background":"hoarder",
+                    "message":[
+                        {"Inner monologue":"Oh my gosh!!! I can't bel1eve todya is my dat wit Micheal Kaiser!!!"},
+                        {"Inner monologue":"What should I look like today?"}
+                    ],
+                    "choice": ["How liz thinks she looks like", "How liz really looks like"],
+                    "choiceoutcome": ["start_liz","start_lizreal"]
+                },
+                {
+                    "sceneid": "start_liz",
+                    "background": "hoarder",
+                    "newvars": [
+                        {"avatar":"liz"}
+                    ],
+                    "message": [
+                        {"Liz": "Yeah thats me"},
+                        {"Liz": "Time to get going to my date!"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome":["start2"]
+                },
+                {
+                    "sceneid": "start_lizreal",
+                    "background": "hoarder",
+                    "newvars": [
+                        {"avatar":"chopped"}
+                    ],
+                    "message": [
+                        {"Liz": "Thats the spitting image of exactly what i look like. Man its real crazy how my sister can't be so much< cuter than me"},
+                        {"Liz": "Time to get going to my date!"}
+                    ],
+                    "choice": [""],
+                    "choiceoutcome":["start2"]
+                },
+                {
+                    "sceneid": "start2",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser": "Yo Michael"},
+                        {"Kaiser":"What is up baby girl!"},
+                        {"Liz": "Omg I cannot believe he is her. Kaiser is lik so cute!"},
+                        {"Kaiser":"Let me just ask... What are you looking for in a man?"}
+                    ],
+                    "choice": ["I want a pretty little boytwink who i can peg","I want you to dominate me"],
+                    "choiceoutcome":["dom","sub"]
+                },
+                {
+                    "sceneid": "sub",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser ": "The real liz would never say that when given the chance with kaiser!"},
+                        {"Kaiser ": "Choose again"},
+                    ],
+                    "choice": ["I want a pretty little boytwink who i can peg"],
+                    "choiceoutcome":["start2"]
+                },
+                {
+                    "sceneid": "dom",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser ": "@What! How can you say something so blunt like that! Perv!"},
+                        {"Kaiser":"I mean... its not like im against getting dominated or anything"},
+                        {"Liz": "Well that great news! Words can't even describe what i feel for"},
+                        {"Liz":"Well maybe I know a phrase that would do the trick"},
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex","You can be the nagi to my reo","Are you dna helicase, because you can unzip my genes"],
+                    "choiceoutcome":["dom_phrase_ex","dom_phrase_nagi","dom_phrase_dna"]
+                },
+                {
+                    "sceneid": "dom_phrase_dna",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+                    "message": [
+                        {"Kaiser": "@Woah! That totally has me swayed over."},
+                        {"Kaiser":"That was so romantic..."},
+                        {"Kaiser": "I feel like I can really trust you, in a way"},
+                        {"Liz":"I'm quite the chick magnet"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions1"]
+                },
+                {
+                    "sceneid": "dom_phrase_nagi",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+1"}
+                    ],
+                    "message": [
+                        {"Kaiser ": "Huh you say something like that?"},
+                        {"Kaiser":"Well I guess the love Nagi and Reo have for eachother is undying"},
+                        {"Kaiser": "That's kinda romantic in a sick and twisted way"},
+                        {"Liz":"I know, im such a heart throb"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions1"]
+                },
+                {
+                    "sceneid": "dom_phrase_ex",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-4"}
+                    ],
+
+                    "message": [
+                        {"Kaiser ": "@What! Bringing up your ex like that to another man!<You already show no loyalty at all!"},
+                        {"Kaiser ":"How can you say such disgusting things about him like that!"},
+                        {"Kaiser ": "Thats something a pick me would do!"},
+                        {"Liz":"Im so sorry i said somehting like that kaiser-chan!"},
+                        {"Liz":"Dattebayo"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions1"]
+                },
+                {
+                    "sceneid": "dom_questions1",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser ": "Hey shitty asian!"},
+                        {"Kaiser":"I wanna see how well you know me"},
+                        {"Liz": "I know you pretty well"},
+                        {"Kaiser":"If I am going to let someone absolutely wreck havoc on my body. I want<them to at least know me well."},
+                        {"Kaiser":"Say, do you know my favorite food is?"}
+                    ],
+                    "choice": ["Sauerkraut","Liz's fluids","Bread crust rusk","Rouladen","Wienerschnitzel","Schwarzwälder Kirschtorte","Vollkornbrot","Half-baked meat pies","Sauerbraten"],
+                    "choiceoutcome":["dom_questions1_wrong","dom_questions1_freak","dom_questions1_right","dom_questions1_wrong","dom_questions1_wrong","dom_questions1_wrong","dom_questions1_wrong","dom_questions1_wrong","dom_questions1_wrong"]
+                },
+                {
+                    "sceneid": "dom_questions1_right",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+4"}
+                    ],
+
+                    "message": [
+                        {"Kaiser": "@Hey you got that right! Good work!"},
+                        {"Liz":"Yeah I know you sooooo welllll!"},
+                        {"Kaiser":"I feel so safe around you"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions2"]
+                },
+
+                {
+                    "sceneid": "dom_questions1_freak",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-6"}
+                    ],
+
+                    "message": [
+                        {"Kaiser ": "@HUH@@ YOU'RE@ A FREAK @@SHOW!@"},
+                        {"Liz":"Come on! That@ wasn't even that bad"},
+                        {"Liz":"When I'm done with you, you'@ll be unable to walk for @days!@"},
+                        {"Kaiser ":"Please just stop, wha@@t the hell is@ wrong with you"},
+                        {"Liz":"Datte@bayo!"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions2"]
+                },
+                {
+                    "sceneid": "dom_questions1_wrong",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-2"}
+                    ],
+
+                    "message": [
+                        {"Kaiser ": "@Thats wrong! I feel betrayed!"},
+                        {"Liz":"mb naked @emperor"},
+                        {"Kaiser ":"Now thats just rude"},
+                        {"Liz":"Dattebayo!"}
+                    ],
+                    "choice": ["I want you almost as much as how much I want my ex"],
+                    "choiceoutcome":["dom_questions2"]
+                },
+                {
+                    "sceneid": "dom_questions2",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser ": "Alright you dumbass!"},
+                        {"Kaiser":"I wanna see how well you REALLY REALLY know me"},
+                        {"Liz": "I'm certain I know this answer"},
+                        {"Kaiser":"What is my dominant leg?"}
+                    ],
+                    "choice": ["Left","Right"],
+                    "choiceoutcome":["dom_questions2_wrong","dom_questions2_right"]
+                },
+                {
+                    "sceneid": "dom_questions2_wrong",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-2"}
+                    ],
+                    "message": [
+                        {"Kaiser ": "Thats so wrong! It's my right foot!"},
+                        {"Kaiser":"I feel so discomforted being around you!"},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_questions3"]
+                },
+                {
+                    "sceneid": "dom_questions2_right",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+3"}
+                    ],
+                    "message": [
+                        {"Kaiser": "Wow you know so much!"},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_questions3"]
+                },
+                {
+                    "sceneid": "dom_questions3",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser ": "Now can you answer my final question!"},
+                        {"Kaiser":"I wanna see how well you TRULY know me"},
+                        {"Liz": "I ahve to know this"},
+                        {"Kaiser":"What is my foot size?"}
+                    ],
+                    "choice": ["25 cm","26 cm","27 cm", "28 cm", "29 cm", "30 cm", "31 cm", "32 cm"],
+                    "choiceoutcome":["dom_questions3_wrong","dom_questions3_wrong","dom_questions3_wrong","dom_questions3_right","dom_questions3_wrong","dom_questions3_wrong","dom_questions3_wrong","dom_questions3_wrong"]
+                },
+                {
+                    "sceneid": "dom_questions3_wrong",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"-2"}
+                    ],
+                    "message": [
+                        {"Kaiser ": "You're wrong! Its 28 cm!@"},
+                        {"Kaiser":"I feel horrible around you!"},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_stage2"]
+                },
+                {
+                    "sceneid": "dom_questions3_right",
+                    "background": "restaurant",
+                    "newvars":[
+                        {"points":"+3"}
+                    ],
+                    "message": [
+                        {"Kaiser": "Wow you know so much!"},
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["dom_stage2"]
+                },
+                {
+                    "sceneid": "dom_stage2",
+                    "background": "restaurant",
+                    "ending": [
+                        { "NormalBad": "ending_dom_fail" },
+                        { "NormalNeutral": "ending_dom_fail" },
+                        { "NormalGood": "dom_stage3" }
+                    ],
+                    "message": [
+                        {"Kaiser": "After everything we've done together so far, its made me realize"},
+                    ],
+                    "choice": ["so hey","but hey"],
+                    "choiceoutcome":["dom_stage3.5","dom_stage3.5"]
+                },
+                {
+                    "sceneid": "ending_dom_fail",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser": "After everything we've done together so far, its made me realize"},
+                        {"Kaiser": "You're horrible to be around. Simply disgusting"},
+                        {"Kaiser":"Don't expect to be seeing me again soon"},
+                        {"Kaiser":"I could never trust my tight asshole around you!"}
+                    ],
+                    "choice": ["Left"],
+                    "choiceoutcome":["ending_dom_fail2"]
+                },
+                {
+                    "sceneid": "dom_stage3",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser": "After everything we've done together so far, its made me realize"},
+                        {"Kaiser": "I feel so safe around you. You can use me in any way you wish!"},
+                    ],
+                    "choice":["a"],
+                    "choiceoutcome":["dom_stage3.5"]
+                },
+                {
+                    "sceneid": "dom_stage3.5",
+                    "background": "restaurant",
+                    "message": [
+                        {"Liz":"*starts salivating*"},
+                        {"Kaiser ":"Woah! A little bit early@. Freakazoid!"},
+                        {"Liz":"It's time I say something super freaky"}
+                    ],
+                    "choice": ["I am so going to tap your bodacious behind","Prepare for the pegging. Get ready in 3","Your ass is soon going to be gaping wide open!"],
+                    "choiceoutcome":["dom_stage4","dom_stage4","dom_stage4"]
+                },
+                {
+                    "sceneid":"ending_dom_fail2",
+                    "background":"bad",
+                    "endingtext":"Kaiser hates you"
+                },
+                {
+                    "sceneid": "dom_stage4",
+                    "background": "restaurant",
+                    "message": [
+                        {"Kaiser": "Woah! I feel so excited... this is strange<I only feel this excited when I'm playing soccer"},
+                        {"Kaiser":"Hey, the last time I've had this much fun was when I played soccer with yoichi<That bastard!"},
+                        {"Kaiser":"Wow you make me feel a way that I've never felt before<I'm ready liz, give me all of you"},
+                        {"Liz":"Dattebayo"},
+                        {"Liz":"#@"},
+                        {"Liz":"I'm already getting so excited just thinking about what i'll do to your bosom"},
+                        {"Kaiser":"Hey, lets take it to my place now."},
+                        {"Liz":"Yessss ###"}
+                    ],
+                    "choice": ["I am so going to tap your bodacious behind"],
+                    "choiceoutcome":["dom_stage5"]
+
+                },
+                {
+                    "sceneid":"dom_stage5",
+                    "background":"good",
+                    "endingtext":"you and kaiser go <br>all the way"
+                },
+
+            ]
+        };
+        var typeWriterID = undefined;
+
+        function typeWriter(message, delay, repetition) { //function for creating the type writer effect with text
+            if (repetition === undefined) {
+                repetition = -1;
+            } 
+            /*if (message == undefined) {
+                message = String(message);
+            }*/
+            if (repetition < message.length) { //check if the message has characters left
+                if (message.charAt(repetition) === '<' || message.charAt(repetition) === '>') {
+                    document.getElementById("output").innerHTML += "<br>";
+                } else if (message.charAt(repetition) ==='@') {
+                    document.getElementById("remember").style.opacity = "1";
+                } else if (message.charAt(repetition) ==='#') {
+                    document.getElementById("output").innerHTML += '&#129316;';
+                } else {
+
+                 document.getElementById("output").innerHTML += message.charAt(repetition); //add the next character to the current output text
+                }
+                repetition++;
+                typeWriterID = setTimeout(typeWriter, delay, message, 1 , repetition); //run the function again in a few milliseconds
+            } else {
+                typewriterFinished = message; // if characters are not left update typewriterFinished, 
+                document.getElementById("nextLine").style.display = 'inherit';
+
+            }
+        }
+
+
+
+
+        jQuery(function () { //runs at the very beginning of the game to start everything
+            newScene("start");
+            setTimeout(rememberDecay,100)
+
+            function rememberDecay() {
+                document.getElementById('remember').style.opacity = document.getElementById('remember').style.opacity - .05;
+                setTimeout(rememberDecay,100)
+            }
+
+        });
+        var continueButton = false;
+        var dialogueLocation = 0;
+
+        function nextLine() { //function that runs to contine to the next line of dialogue
+            
+            if (document.getElementById('nextLine').style.display === 'inherit') {
+                document.getElementById('nextLine').style.display = 'none'; //called when textbox is clicked.
+                if (dialogueLocation === -1) { //if dialogue is finished then show buttons
+                    continueButton = true; //when continueButton is set to true, the buttons will then procede to load
+                }
+                continueLine = typewriterFinished; //variable signals that the game can show the next line
+
+                // when continueLine is equal to the previous message shown, the game will start showing the next line
+                // and typewriterFinished is equal to said previous message
+            }
+        }
+        
+        function newScene(nextScene) { //code for starting new scenes
+            var typewriterFinished;
+            if (nextScene === undefined) { //if called from button, get the scene name
+                nextScene = event.target.id;
+            }
+            //document.getElementById("output").innerHTML = nextScene; actually useless code i think
+            var f = "";
+            jQuery.each(sourceJson.scenes, function (i, output) { //scan through all scenes to find the scene we're looking for
+                if (output.sceneid === nextScene) {
+                    f = output;
+                }
+            });
+
+            jQuery.each(f.newvars, function (i, newValue) { //code for setting variables
+                //loops for each entry in a list
+                jQuery.each(newValue, function (newVar, newVal) { //loops for the values in said entry
+                    if (newVal[0] === '+') { //if the first char is '0'
+                        newValDifference = newVal.slice(1); //get the number to change
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points + newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs + newValDifference;
+                                break;
+                        }
+                    }
+                    if (newVal[0] === '-') {
+                        var newValDifference = newVal.slice(1);
+                        newValDifference = parseInt(newValDifference);
+                        switch (newVar) {
+                            case "points":
+                                newVal = points - newValDifference;
+
+                                break;
+                            case "bigmacs":
+                                newVal = bigmacs - newValDifference;
+                                break;
+                        }
+                    }
+
+
+                    switch (newVar) {
+                        case "avatar":
+                            avatar = newVal;
+                            break;
+                        case "points":
+                            points = newVal;
+                            console.log("points: " + points);
+
+                            break;
+                        case "bigmacs":
+                            bigmacs = newVal;
+                            break;
+                        case "deathnote":
+                            deathnote = newVal;
+                            break;
+                        case "minions":
+                            minions = newVal;
+                            break;
+                    }
+                });
+
+
+            });
+
+            var lastMessage = "";
+            dialogueLocation = 0;
+            typewriterFinished = undefined; //code for displaying dialogue
+            jQuery.each(f.message, function (i, chatPair) { //loop
+                jQuery.each(chatPair, function (actor, message) {
+                    function waitForTypewriter() {
+                        if (continueLine === lastMessage || typewriterFinished === undefined) { //checks if the requirements to signal the next line are ready
+                            dialogueLocation++;
+                           
+                            typewriterFinished = "";
+                            clearTimeout(typeWriterID);
+                            newMessage = message;
+                            document.getElementById("speakerName").innerHTML = actor; //update the actor name in textbox
+
+                            document.getElementById("output").innerHTML = ""; //reset the dialogue in textbox
+                            if (actor == "" || actor == " ") {
+                                document.getElementById('textbox').innerHTML = '<img src="lizassets/textboxempty.png" onclick=nextLine() alt="image" width="800" height="300"/>';
+                            } else {
+                                if (actor=="Liz") {
+                                    if (avatar == "chopped") {
+                                        document.getElementById('model').innerHTML = '<img src="lizassets/lizcanyon.png" alt="liz" width="336" height="638"/>'
+
+                                    } else {
+                                        document.getElementById('model').innerHTML = '<img src="lizassets/liznormal.png" alt="liz" width="336" height="638"/>'
+                                    }
+                                } else if (actor=="Kaiser") {
+                                    document.getElementById('model').innerHTML = '<img src="lizassets/kaiser.png" alt="liz" width="336" height="638"/>'
+                                } else if (actor=="Kaiser ") {
+                                    document.getElementById('model').innerHTML = '<img src="lizassets/Kaiser2.png" alt="liz" width="336" height="638"/>'
+
+                                } else {
+                                    document.getElementById('model').innerHTML =""
+                                }
+                                document.getElementById("textbox").innerHTML = '<img src="lizassets/textbox.png" onclick=nextLine() alt="image" width="800" height="300"/>';
+                            }
+                            typeWriter(newMessage, 0); //run the function for the typewriter effect
+                            if (dialogueLocation === f.message.length ) { //if it's the last line in scene
+                                dialogueLocation = -1; //then set dialogue location to -1, which signals that we're done with the scene
+                            }
+                            lastMessage = message;
+                        }
+                        else {
+                            setTimeout(waitForTypewriter, 250);
+                        }
+                    }
+                    waitForTypewriter();
+                });
+
+            }
+
+            );
+            var enteredEndingSkipping=false
+
+            if (f.ending != null) { //code for dealing with ending redirects
+                jQuery.each(f.ending, function (i, newValue) { //loop for each pair in the list
+                    jQuery.each(newValue, function (endingType, endingResult) { //loop for the pair and its values
+                        switch (endingType) {
+                            case "NormalNeutral":
+                                if (points >= -2 && points <= 3) {
+                                    enteredEndingSkipping=true
+                                    newScene(endingResult);
+                                    return;
+                                }
+                                break;
+                            case "NormalGood":
+                                if (points > 5) {
+                                    enteredEndingSkipping=true
+                                    newScene(endingResult);
+                                    return;
+
+                                }
+                                break;
+
+                            case "NormalBad":
+                                if (points < -2) {
+                                    enteredEndingSkipping=true
+                                    newScene(endingResult);
+                                    return;
+
+                                }
+                                break;
+
+                        }
+
+                    });
+                });
+            }
+            if (f.endingtext != null) {
+                document.getElementById("endingtext").innerHTML = f.endingtext;
+                const output = document.getElementById("output").remove;
+                output.remove;
+            }
+         
+            if (f.overrideVar != null) { //handles the override stuff
+                switch (f.overrideVar) {
+                   /* case "bigmacs":
+                        if (bigmacs == f.overrideRequirement) {
+                            newScene(f.overrideRedirect);
+                            return;
+                        }
+                        break;
+                */}
+            }
+
+
+            document.getElementById("upleft").innerHTML = ""; //reset current actors
+            document.getElementById("downleft").innerHTML = "";
+            document.getElementById("center").innerHTML = "";
+            document.getElementById("upright").innerHTML = "";
+            document.getElementById("downright").innerHTML = "";
+
+
+            jQuery.each(f.actors, function (i, actorPair) { //code for updating for new actors
+                jQuery.each(actorPair, function (actorLocation, actorName) {
+                    var actorImage;
+                    if (actorName == "avatar") {
+                        actorName = avatar;
+                    }
+                    switch (actorName) {
+                        case "Shrek":
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187196065951264768/image.png?ex=6596017f&is=65838c7f&hm=f679742ed48241a72618c1d79389d742d5d7ed87708b4cf1471cd13c7f9d17a6&" alt="image" width="120">';
+                            break;
+                        default:
+                            actorImage = '<img src="https://cdn.discordapp.com/attachments/1078447616716710039/1187196065951264768/image.png?ex=6596017f&is=65838c7f&hm=f679742ed48241a72618c1d79389d742d5d7ed87708b4cf1471cd13c7f9d17a6&" alt="default" width="100">';
+                    }       
+                    document.getElementById(actorLocation).innerHTML = actorImage;
+                });
+
+            });
+            
+            var background = f.background;
+            switch (background) { //code for changing backgrounds
+                case "hoarder":
+                    document.getElementById("background").innerHTML = '<img src="lizassets/hoarder.webp" alt="image" width="750" height="560">'
+                    break;
+                case "restaurant":
+                    document.getElementById("background").innerHTML = '<img src="lizassets/rest.webp" alt="image" width="750" height="560">'
+                    break;
+                case "good":
+                    document.getElementById("background").innerHTML = '<img src="lizassets/ending.png" alt="image" width="750" height="560">'
+                    break;
+                case "bad":
+                    document.getElementById("background").innerHTML = '<img src="lizassets/ending_bad.png" alt="image" width="750" height="560">'
+                    break;
+
+
+                /* case "bedroom":
+                     document.getElementById("background").innerHTML = '<img src="assets/backgrounds/bedroom.png" alt="image" width="750" height="560">'
+                     break;
+ */
+            }
+            var newChoice = f.choice;
+            document.getElementById("output").innerHTML = "";
+
+            var buttonList = ""; //creates buttons
+
+            function showButtons() {
+                if (enteredEndingSkipping) {
+                    return;
+                }
+                document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                console.log(nextScene)
+                if (continueButton) {
+                    continueButton = false;
+                    if (f.choice != null) {
+                        if (f.choice.length > 1) {
+                            var repetition = 0;
+                            function displayButtons() {
+                                if (repetition < f.choice.length) {
+                                    console.log(repetition);
+                                    console.log(f.choiceoutcome);
+                                    console.log(f.choiceoutcome[repetition]);
+                                    console.log(`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+
+                                    buttonList += (`<button type="button" onclick="newScene()"  id="${f.choiceoutcome[repetition]}" >${f.choice[repetition]}</button> <br>`);
+                                    document.getElementsByClassName("buttonOutput")[0].innerHTML = buttonList;
+                                    repetition++;
+                                    setTimeout(displayButtons, 250);
+                                }
+                            }
+                            displayButtons();
+                        } else {
+                            newScene(f.choiceoutcome[0]);
+                        }
+                    }
+
+
+                } else {
+                    setTimeout(showButtons, 250);
+                }
+            }
+                showButtons();
+
+            }
+        
+    </script>
+    <title>Shrek and Obama: The Christmas Romance Experience</title>
+</head>
+<body>
+    <div id="body">
+        <div id="background"></div>
+        <div class="textbox">
+            <div id="textbox">
+            <img src="lizassets/textbox.png" onclick=nextLine() alt="image" width="750" height="300"/>
+            </div>
+            <div onclick=nextLine() id="output">
+            <p>test</p>
+            </div>
+            <div onclick=nextLine() id="nextLine"><i>~click to continue~</i></div>
+            <div id="speakerName"></div>
+            <div id="remember"><p>Kaiser will remember that</p></div>
+        </div>
+        <div class="buttonOutput">
+        </div>
+        <div id="actors">
+            <div id="upleft"> </div>
+            <div id="upright"></div>
+            <div id="center"></div>
+            <div id="downright"></div>
+            <div id="downleft"></div>
+
+        </div>
+        <div id="endingtext"> </div>
+        <div id="model">
+            <img src="lizassets/liznormal.png" alt="liz" width="336" height="638"/>
+        </div>
+
+
+    </div>
+</body>
+</html>
